@@ -1,0 +1,44 @@
+<configuration>
+
+    <appender name="GRAYLOG"
+              class="biz.paluch.logging.gelf.logback.GelfLogbackAppender">
+
+        <host>udp:localhost</host>
+        <port>12201</port>
+
+        <facility>relatorios-logs</facility>
+
+        <extractStackTrace>true</extractStackTrace>
+        <filterStackTrace>true</filterStackTrace>
+
+        <includeFullMdc>true</includeFullMdc>
+
+        <includeLocation>true</includeLocation>
+
+        <mdcProfiling>true</mdcProfiling>
+
+        <maximumMessageSize>8192</maximumMessageSize>
+
+        <additionalFields>
+            app_name=relatorios-logs
+        </additionalFields>
+
+    </appender>
+
+    <appender name="CONSOLE"
+              class="ch.qos.logback.core.ConsoleAppender">
+
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss} %-5level [%X{service}] %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="GRAYLOG"/>
+    </root>
+
+</configuration>
